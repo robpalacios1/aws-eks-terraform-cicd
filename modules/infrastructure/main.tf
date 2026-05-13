@@ -109,3 +109,10 @@ resource "aws_route_table" "public-rt" {
     environment = "dev"
   }
 }
+
+# 12. Create Route
+resource "aws_route" "public-default-igw" {
+  route_table_id = aws_route_table.public-rt.id
+  destination_cidr_block = "0.0.0.0/0"
+  gateway_id = aws_internet_gateway.main-igw.id
+}
