@@ -116,3 +116,15 @@ resource "aws_route" "public-default-igw" {
   destination_cidr_block = "0.0.0.0/0"
   gateway_id = aws_internet_gateway.main-igw.id
 }
+
+# 13. Create Route Table Association 1
+resource "aws_route_table_association" "public-rta-1" {
+  subnet_id = aws_subnet.public-subnet-1.id
+  route_table_id = aws_route.table.public-rt.id
+}
+
+# 14. Create Route Table Association 2
+resource "aws_route_table_association" "public-rta-2" {
+  subnet_id = aws_subnet.public-subnet-2.id
+  route_table_id = aws_route.table.public-rt.id
+}
