@@ -161,3 +161,10 @@ resource "aws_route_table" "private-rt-az2" {
     environment = "dev"
   }
 }
+
+# 19. Create private NAT AZ2
+resource "aws_route" "private-default-nat-az2" {
+  route_table_id = aws_route_table.private-rt-az2.id
+  destination_cidr_block = "0.0.0.0/0"
+  nat_gateway_id = aws_nat_gateway.nat-gw-az2.id
+}
