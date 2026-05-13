@@ -120,13 +120,13 @@ resource "aws_route" "public-default-igw" {
 # 13. Create Public Route Table Association 1
 resource "aws_route_table_association" "public-rta-1" {
   subnet_id = aws_subnet.public-subnet-1.id
-  route_table_id = aws_route.table.public-rt.id
+  route_table_id = aws_route_table.public-rt.id
 }
 
 # 14. Create Public Route Table Association 2
 resource "aws_route_table_association" "public-rta-2" {
   subnet_id = aws_subnet.public-subnet-2.id
-  route_table_id = aws_route.table.public-rt.id
+  route_table_id = aws_route_table.public-rt.id
 }
 
 # 15. Private Route Table AZ1 
