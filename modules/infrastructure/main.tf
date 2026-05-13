@@ -99,3 +99,13 @@ resource "aws_nat_gateway" "nat-gw-az2" {
   }
   depends_on = [ aws_internet_gateway.main-igw ]
 }
+
+# 11. Create Public Route Table
+resource "aws_route_table" "public-rt" {
+  vpc_id = aws_vpc.main-vpc.id
+  
+  tags = {
+    Name = "public-rt"
+    environment = "dev"
+  }
+}
