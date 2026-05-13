@@ -30,3 +30,17 @@ resource "aws_subnet" "public-subnet-2" {
       Name = "public-subnet-2"
     }
 }
+
+# 4. Create Private Subnet (1)
+resource "aws_subnet" "private-subnet-1" {
+  vpc_id = aws_vpc.main-vpc
+  cidr_block = "10.0.3.0/24"
+  availability_zone = "us-east-1a"
+}
+
+# 5. Create Private Subnet (2)
+resource "aws_subnet" "private-subnet-2" {
+  vpc_id = aws_vpc.main-vpc
+  cidr_block = "10.0.4.0/24"
+  availability_zone = "us-east-1b"
+}
