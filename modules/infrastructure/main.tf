@@ -74,4 +74,28 @@ resource "aws_eip" "nat-eip-az2" {
       environment = "dev"
     }
     depends_on = [ aws_internet_gateway.main-igw ]
-}  
+}
+
+# 9. Create a NAT Gateway AZ1
+resource "aws_nat_gateway" "nat-gw-az1" {
+  allocation_id = aws_eip.nat-eip-az1.id
+  subnet_id = aws_subnet.public-subnet-1.id
+
+  tags = {
+    Name = "nat-gw-az1"
+    environment = "dev"
+  }
+  depends_on = [ aws_internet_gateway.main-igw ]
+}
+
+# 10. Create a NAT Gateway AZ2
+resource "aws_nat_gateway" "nat-gw-az2" {
+  allocation_id = aws_eip.nat-eip-az2.id
+  subnet_id = aws_subnet.public-subnet-2.id
+
+  tags = {
+    Name = "nat-gw-az2"
+    environment = "dev"
+  }
+  depends_on = [ aws_internet_gateway.main-igw ]
+}
