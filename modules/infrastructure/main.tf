@@ -145,3 +145,9 @@ resource "aws_route" "private-default-nat-az1" {
   destination_cidr_block = "0.0.0.0/0"
   nat_gateway_id = aws_nat_gateway.nat-gw-az1.id
 }
+
+# 17. Create private route table association in AZ1
+resource "aws_route_table_association" "private-rta-1" {
+  subnet_id = aws_subnet.private-subnet-1.id
+  route_table_id = aws_route_table.private-rt-az1.id
+}
