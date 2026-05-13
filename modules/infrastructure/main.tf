@@ -44,3 +44,12 @@ resource "aws_subnet" "private-subnet-2" {
   cidr_block = "10.0.4.0/24"
   availability_zone = "us-east-1b"
 }
+
+# 6. Create Internet Gateway
+resource "aws_internet_gateway" "main-igw" {
+  vpc_id = aws_vpc.main-vpc
+
+  tags = {
+    Name = "main-igw"
+  }
+}
