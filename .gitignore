@@ -1,0 +1,47 @@
+# Terraform
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+crash.log
+crash.*.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.terraform.tfstate.lock.info
+.terraformrc
+terraform.rc
+
+# Variables con datos sensibles (descomenta si usas nombres distintos a example)
+*.tfvars
+*.tfvars.json
+!*.tfvars.example
+!terraform.tfvars.example
+
+# Planes locales
+*.tfplan
+plan.out
+
+# Credenciales y claves (AWS, SSH, etc.)
+*.pem
+*.ppk
+*.key
+secrets/
+.env
+.env.*
+
+# SO
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Editores / IDE
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs y temporales
+*.log
+tmp/
+temp/
