@@ -53,3 +53,25 @@ resource "aws_internet_gateway" "main-igw" {
     Name = "main-igw"
   }
 }
+
+# 7. Create Elastic IP (1) 
+resource "aws_eip" "nat-eip-az1" {
+    domain = "vpc"
+
+    tags = {
+      Name = "nat-eip-az1"
+      environment = "dev"
+    }
+    depends_on = [ aws_internet_gateway.main-igw ]
+}
+
+# 8. Create Elastic IP (2)
+resource "aws_eip" "nat-eip-az2" {
+    domain = "vpc"
+
+    tags =  {
+      Name = "nat-eip-az2"
+      environment = "dev"
+    }
+    depends_on = [ aws_internet_gateway.main-igw ]
+}  
