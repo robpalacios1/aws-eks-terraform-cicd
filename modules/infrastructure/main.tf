@@ -172,5 +172,5 @@ resource "aws_route" "private-default-nat-az2" {
 # 20. Create private route table association in AZ2
 resource "aws_route_table_association" "private-rt-az2" {
   subnet_id = aws_subnet.private-subnet-2.id
-  route_table_id = aws_route_table.private-rt-az1.id
+  route_table_id = aws_route_table.private-rt-az2.id
 }
