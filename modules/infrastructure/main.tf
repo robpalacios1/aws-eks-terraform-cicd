@@ -128,3 +128,13 @@ resource "aws_route_table_association" "public-rta-2" {
   subnet_id = aws_subnet.public-subnet-2.id
   route_table_id = aws_route.table.public-rt.id
 }
+
+# 15. Private Route Table AZ1 
+resource "aws_route_table" "private-rt-az1" {
+  vpc_id = aws_vpc.main-vpc.id
+
+  tags = {
+    Name = "private-rt-az1"
+    environment = "dev"
+  }
+}
