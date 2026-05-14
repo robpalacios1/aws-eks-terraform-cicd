@@ -1,7 +1,9 @@
 module "networking" {
   source = "../../modules/networking"
-
-  # variables for networking module 
+ 
+# ====================================================================
+# 1. variables for networking module
+# ====================================================================
 
   # VPC
   vpc_cidr_block  = "10.0.0.0/16"
@@ -54,4 +56,19 @@ module "networking" {
 
   # Private Route Table AZ2
   private_rt_az2_name = "private-rt-az2"
+}
+
+///////////////////////////////////////////////////////////////////////
+module "eks" {
+  source = "../../modules/eks"
+
+# ====================================================================
+# 2. variables for EKS module
+# ====================================================================
+
+  # Cluster Name
+  cluster_name = "development-eks-cluster-role"
+
+  # Node Name
+  node_name = "development-eks-node-role"
 }
