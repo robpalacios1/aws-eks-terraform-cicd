@@ -1,7 +1,7 @@
 # VPC ID
 output "vpc_id" {
   description = "VPC ID"
-  value = aws_vpc.main-vpc.id
+  value       = aws_vpc.main-vpc.id
 }
 
 # Public Subnets list ID
