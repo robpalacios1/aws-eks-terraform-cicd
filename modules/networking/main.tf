@@ -15,7 +15,8 @@ resource "aws_subnet" "public-subnet-1" {
   map_public_ip_on_launch = true
 
   tags = {
-    Name = var.public_subnet_1
+    Name = var.public_subnet_1_name
+    "kubernetes.io/role/elb" = "1"
   }
 }
 
@@ -27,7 +28,8 @@ resource "aws_subnet" "public-subnet-2" {
   map_public_ip_on_launch = true
 
   tags = {
-    Name = var.public_subnet_2
+    Name = var.public_subnet_2_name
+    "kubernetes.io/role/elb" = "1"
   }
 }
 
@@ -36,6 +38,11 @@ resource "aws_subnet" "private-subnet-1" {
   vpc_id            = aws_vpc.main-vpc.id
   cidr_block        = var.private_subnet_1_cidr_block
   availability_zone = var.private_subnet_1_az1a
+
+  tags = {
+    Name = var.private_subnet_1_name
+    "kubernetes.io/role/internal-elb" = "1"
+  }
 }
 
 # 5. Create Private Subnet (2)
@@ -43,6 +50,11 @@ resource "aws_subnet" "private-subnet-2" {
   vpc_id            = aws_vpc.main-vpc.id
   cidr_block        = var.private_subnet_2_cidr_block
   availability_zone = var.public_subnet_2_az1b
+
+  tags = {
+    Name = var.private_subnet_2_name
+    "kubernetes.io/role/internal-elb" = "1"
+  }
 }
 
 # 6. Create Internet Gateway
