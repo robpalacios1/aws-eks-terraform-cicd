@@ -11,20 +11,22 @@ module "networking" {
 # public Subnet 1
   public_subnet_1_cidr_block = "10.0.1.0/24"
   public_subnet_1_az1a = "us-east-1a"
-  public_subnet_1 = "public-subnet-1"
+  public_subnet_1_name = "public-subnet-1"
 
 # public Subnet 2
   public_subnet_2_cidr_block = "10.0.2.0/24"
   public_subnet_2_az1b = "us-east-1b"
-  public_subnet_2 = "public-subnet-2"
+  public_subnet_2_name = "public-subnet-2"
 
 # private Subnet 1
   private_subnet_1_cidr_block = "10.0.3.0/24"
   private_subnet_1_az1a = "us-east-1a"
+  private_subnet_1_name = "private-subnet-1"
 
 # private Subnet 2
   private_subnet_2_cidr_block = "10.0.4.0/24"
   private_subnet_2_az1b = "us-east-1b"
+  private_subnet_2_name = "private-subnet-2"
 
 # Internet Gatewy
   igw_name = "main-igw"
