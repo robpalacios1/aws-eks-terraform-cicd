@@ -1,48 +1,48 @@
 # 1. Create VPC
 resource "aws_vpc" "main-vpc" {
-  cidr_block = "10.0.0.0/16"
+  cidr_block = var.vpc_cidr_block
   tags = {
-    Name        = "main-vpc"
-    environment = "dev"
+    Name        = var.vpc_name
+    environment = var.vpc_environment
   }
 }
 
 # 2. Create Public Subnets (1)
 resource "aws_subnet" "public-subnet-1" {
   vpc_id                  = aws_vpc.main-vpc.id
-  cidr_block              = "10.0.1.0/24"
-  availability_zone       = "us-east-1a"
+  cidr_block              = var.public_subnet_1_cidr_block
+  availability_zone       = var.public_subnet_1_az1a
   map_public_ip_on_launch = true
 
   tags = {
-    Name = "public-subnet-1"
+    Name = var.public_subnet_1
   }
 }
 
 # 3. Create Public Subnet (2)
 resource "aws_subnet" "public-subnet-2" {
   vpc_id                  = aws_vpc.main-vpc.id
-  cidr_block              = "10.0.2.0/24"
-  availability_zone       = "us-east-1b"
+  cidr_block              = var.public_subnet_2_cidr_block
+  availability_zone       = var.public_subnet_2_az1b
   map_public_ip_on_launch = true
 
   tags = {
-    Name = "public-subnet-2"
+    Name = var.public_subnet_2
   }
 }
 
 # 4. Create Private Subnet (1)
 resource "aws_subnet" "private-subnet-1" {
   vpc_id            = aws_vpc.main-vpc.id
-  cidr_block        = "10.0.3.0/24"
-  availability_zone = "us-east-1a"
+  cidr_block        = var.private_subnet_1_cidr_block
+  availability_zone = var.private_subnet_1_az1a
 }
 
 # 5. Create Private Subnet (2)
 resource "aws_subnet" "private-subnet-2" {
   vpc_id            = aws_vpc.main-vpc.id
-  cidr_block        = "10.0.4.0/24"
-  availability_zone = "us-east-1b"
+  cidr_block        = var.private_subnet_2_cidr_block
+  availability_zone = var.public_subnet_2_az1b
 }
 
 # 6. Create Internet Gateway
@@ -50,7 +50,7 @@ resource "aws_internet_gateway" "main-igw" {
   vpc_id = aws_vpc.main-vpc.id
 
   tags = {
-    Name = "main-igw"
+    Name = var.igw_name
   }
 }
 
@@ -59,8 +59,8 @@ resource "aws_eip" "nat-eip-az1" {
   domain = "vpc"
 
   tags = {
-    Name        = "nat-eip-az1"
-    environment = "dev"
+    Name        = var.nat_eip_az1_name
+    environment = var.vpc_name
   }
   depends_on = [aws_internet_gateway.main-igw]
 }
@@ -70,8 +70,8 @@ resource "aws_eip" "nat-eip-az2" {
   domain = "vpc"
 
   tags = {
-    Name        = "nat-eip-az2"
-    environment = "dev"
+    Name        = var.nat_eip_az2_name
+    environment = var.vpc_name
   }
   depends_on = [aws_internet_gateway.main-igw]
 }
@@ -82,8 +82,8 @@ resource "aws_nat_gateway" "nat-gw-az1" {
   subnet_id     = aws_subnet.public-subnet-1.id
 
   tags = {
-    Name        = "nat-gw-az1"
-    environment = "dev"
+    Name        = var.nat_gw_az1_name
+    environment = var.vpc_name
   }
   depends_on = [aws_internet_gateway.main-igw]
 }
@@ -94,8 +94,8 @@ resource "aws_nat_gateway" "nat-gw-az2" {
   subnet_id     = aws_subnet.public-subnet-2.id
 
   tags = {
-    Name        = "nat-gw-az2"
-    environment = "dev"
+    Name        = var.nat_gw_az2_name
+    environment = var.nat_gw_az2_name
   }
   depends_on = [aws_internet_gateway.main-igw]
 }
@@ -105,15 +105,15 @@ resource "aws_route_table" "public-rt" {
   vpc_id = aws_vpc.main-vpc.id
 
   tags = {
-    Name        = "public-rt"
-    environment = "dev"
+    Name        = var.public_rt_name
+    environment = var.vpc_name
   }
 }
 
 # 12. Create Route
 resource "aws_route" "public-default-igw" {
   route_table_id         = aws_route_table.public-rt.id
-  destination_cidr_block = "0.0.0.0/0"
+  destination_cidr_block = var.public_destination_cidr_block
   gateway_id             = aws_internet_gateway.main-igw.id
 }
 
@@ -134,15 +134,15 @@ resource "aws_route_table" "private-rt-az1" {
   vpc_id = aws_vpc.main-vpc.id
 
   tags = {
-    Name        = "private-rt-az1"
-    environment = "dev"
+    Name        = var.private_rt_az1_name
+    environment = var.vpc_name
   }
 }
 
 # 16. Create private NAT AZ1
 resource "aws_route" "private-default-nat-az1" {
   route_table_id         = aws_route_table.private-rt-az1.id
-  destination_cidr_block = "0.0.0.0/0"
+  destination_cidr_block = var.public_destination_cidr_block
   nat_gateway_id         = aws_nat_gateway.nat-gw-az1.id
 }
 
@@ -157,15 +157,15 @@ resource "aws_route_table" "private-rt-az2" {
   vpc_id = aws_vpc.main-vpc.id
 
   tags = {
-    Name        = "private-rt-az2"
-    environment = "dev"
+    Name        = var.private_rt_az2_name
+    environment = var.vpc_name
   }
 }
 
 # 19. Create private NAT AZ2
 resource "aws_route" "private-default-nat-az2" {
   route_table_id         = aws_route_table.private-rt-az2.id
-  destination_cidr_block = "0.0.0.0/0"
+  destination_cidr_block = var.public_destination_cidr_block
   nat_gateway_id         = aws_nat_gateway.nat-gw-az2.id
 }
 
