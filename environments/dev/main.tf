@@ -1,3 +1,55 @@
 module "networking" {
   source = "../../modules/networking"
+
+# variables for networking module 
+
+# VPC
+  vpc_cidr_block = "10.0.0.0/16"
+  vpc_name = "development"
+  vpc_environment = "dev"
+
+# public Subnet 1
+  public_subnet_1_cidr_block = "10.0.1.0/24"
+  public_subnet_1_az1a = "us-east-1a"
+  public_subnet_1 = "public-subnet-1"
+
+# public Subnet 2
+  public_subnet_2_cidr_block = "10.0.2.0/24"
+  public_subnet_2_az1b = "us-east-1b"
+  public_subnet_2 = "public-subnet-2"
+
+# private Subnet 1
+  private_subnet_1_cidr_block = "10.0.3.0/24"
+  private_subnet_1_az1a = "us-east-1a"
+
+# private Subnet 2
+  private_subnet_2_cidr_block = "10.0.4.0/24"
+  private_subnet_2_az1b = "us-east-1b"
+
+# Internet Gatewy
+  igw_name = "main-igw"
+
+# Elastic IP (1)
+  nat_eip_az1_name = "nat-eip-az1"
+
+# Elastic IP (2)
+  nat_eip_az2_name = "nat-eip-az2"
+
+# NAT Gateway AZ1
+  nat_gw_az1_name = "nat-gw-az1"
+
+# NAT Gateway AZ2
+  nat_gw_az2_name = "nat-gw-az2"
+
+# Public Route Table
+  public_rt_name = "public-rt"
+
+# Destination cidr block
+  public_destination_cidr_block = "0.0.0.0/0"
+
+# Private Route Table AZ1
+  private_rt_az1_name = "private-rt-az1"
+
+# Private Route Table AZ2
+  private_rt_az2_name = "private-rt-az2"
 }
