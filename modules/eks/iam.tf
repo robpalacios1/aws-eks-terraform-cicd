@@ -3,7 +3,7 @@
 # ====================================================================
 
 resource "aws_iam_role" "cluster" {
-  name = "development-eks-cluster-role"
+  name = "${var.cluster_name}-cluster-rol"
 
   assume_role_policy = jsondecode({
     Version= "2012-10-17"
@@ -29,7 +29,7 @@ resource "aws_iam_role_policy_attachment" "cluster_policy" {
 # ====================================================================
 
 resource "aws_iam_role" "node" {
-  name = "development-eks-node-role"
+  name = "${development-eks-node-role}-node-rol"
 
   assume_role_policy = jsondecode({
     Version = "2012-10-17"
