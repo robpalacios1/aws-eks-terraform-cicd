@@ -118,7 +118,7 @@ variable "nat_gw_az1_name" {
 }
 
 ////////////////////////////////////////////////////////////
-# Create variables for NAT Gateway AZ1
+# Create variables for NAT Gateway AZ2
 variable "nat_gw_az2_name" {
   description = "Name of NAT Gateway in availability zone 2"
   type = string
