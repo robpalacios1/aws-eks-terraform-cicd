@@ -31,7 +31,7 @@ variable "public_subnet_1_az1a" {
   default = "us-east-1a"
 }
 
-variable "public_subnet_1" {
+variable "public_subnet_1_name" {
   description = "The public subnet 1 name"
   type = string
   default = "public-subnet-1"
@@ -51,7 +51,7 @@ variable "public_subnet_2_az1b" {
   default = "us-east-1b"
 }
 
-variable "public_subnet_2" {
+variable "public_subnet_2_name" {
   description = "The public subnet 2 name"
   type = string
   default = "public-subnet-2"
@@ -71,6 +71,12 @@ variable "private_subnet_1_az1a" {
   default = "us-east-1a"
 }
 
+variable "private_subnet_1_name" {
+  description = "Name private subnet 1"
+  type = string
+  default = "private-subnet-1"
+}
+
 ////////////////////////////////////////////////////////////
 # Create variables for private Subnet 2
 variable "private_subnet_2_cidr_block" {
@@ -83,6 +89,12 @@ variable "private_subnet_2_az1b" {
   description = "The availability zone for private subnet 2"
   type = string
   default = "us-east-1b"
+}
+
+variable "private_subnet_2_name" {
+  description = "Name private subnet 2"
+  type = string
+  default = "private-subnet-2"
 }
 
 ////////////////////////////////////////////////////////////
