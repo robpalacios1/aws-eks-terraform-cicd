@@ -3,15 +3,15 @@
 # ====================================================================
 
 resource "aws_ecr_repository" "app_ecr_repo" {
-  name                 = "development-app-ecr-repo"
-  image_tag_mutability = "MUTABLE"
+  name                 = var.app_ecr_repo_name
+  image_tag_mutability = var.app_ecr_image_mutability
 
   image_scanning_configuration {
     scan_on_push = true
   }
 
   tags = {
-    environment = "dev"
+    environment = var.app_ecr_environment   
   }
 }
 
@@ -20,20 +20,18 @@ resource "aws_ecr_repository" "app_ecr_repo" {
 # ====================================================================
 
 resource "aws_eks_cluster" "main_eks_cluster" {
-  name    = "development-eks-cluster"
-  version = "1.30"
+  name    = var.main_eks_cluster_name   
+  version = var.main_eks_cluster_version   
 
   # The ARN from Role created in the file iam.tf
   role_arn = aws_iam_role.cluster.arn
 
   vpc_config {
-    subnet_ids = [
-      "subnet-0123456789abcdef0",
-      "subnet-0abcdef1234567890"
-    ]
+    subnet_ids = var.main_eks_cluster_subnets_ids
+
     # Allow connect to cluster from your terminal (kubectl)
-    endpoint_public_access  = true
-    endpoint_private_access = false
+    endpoint_public_access  = var.main_eks_cluster_public_access    
+    endpoint_private_access = var.main_eks_cluster_private_access
   }
 
   depends_on = [
@@ -47,29 +45,26 @@ resource "aws_eks_cluster" "main_eks_cluster" {
 
 resource "aws_eks_node_group" "main_eks_node_group" {
   cluster_name    = aws_eks_cluster.main_eks_cluster.name
-  node_group_name = "development-eks-node-group"
+  node_group_name = var.main_eks_node_group_name
 
   # We use the ARN of role for the nodes created in iam.tf 
   node_role_arn = aws_iam_role.node.arn
 
-  subnet_ids = [
-    "subnet-0123456789abcdef0",
-    "subnet-0abcdef1234567890"
-  ]
+  subnet_ids = var.main_eks_node_group_subnets_ids
 
   capacity_type  = "ON_DEMAND"
   instance_types = ["t3.micro"]
 
   # Auto Scaling Configuration
   scaling_config {
-    desired_size = 2
-    max_size     = 3
-    min_size     = 1
+    desired_size = var.main_eks_node_group_desired_size
+    max_size     = var.main_eks_node_group_max_size
+    min_size     = var.main_eks_node_group_min_size
   }
 
   # Configuration Update without time of inactivity
   update_config {
-    max_unavailable = 1
+    max_unavailable = var.main_eks_node_group_max_unavailable
   }
 
   depends_on = [
