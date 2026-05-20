@@ -78,13 +78,13 @@ module "eks" {
   # Cluster EKS
   main_eks_cluster_name = "development-eks-cluster"
   main_eks_cluster_version = "1.30"
-  main_eks_cluster_subnets_ids = module.networking.dev_private_subnets_ids
+  main_eks_cluster_subnets_ids = module.networking.private_subnets_ids
   main_eks_cluster_public_access = true
   main_eks_cluster_private_access = false
 
   # Node Groups
   main_eks_node_group_name = "development-eks-node-group"
-  main_eks_node_group_subnets_ids = module.networking.dev_private_subnets_ids
+  main_eks_node_group_subnets_ids = module.networking.private_subnets_ids
   main_eks_node_group_desired_size = 2
   main_eks_node_group_max_size = 3
   main_eks_node_group_min_size = 1
