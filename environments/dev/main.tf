@@ -66,9 +66,27 @@ module "eks" {
 # 2. variables for EKS module
 # ====================================================================
 
-  # Cluster Name
+  #Cluster Name
   cluster_name = "development-eks-cluster-role"
-
-  # Node Name
   node_name = "development-eks-node-role"
+
+  # ECR Repo
+  app_ecr_repo_name = "development-app-ecr-repo"
+  app_ecr_image_mutability = "MUTABLE"
+  app_ecr_environment = "dev"
+
+  # Cluster EKS
+  main_eks_cluster_name = "development-eks-cluster"
+  main_eks_cluster_version = "1.30"
+  main_eks_cluster_subnets_ids = module.networking.dev_private_subnets_ids
+  main_eks_cluster_public_access = true
+  main_eks_cluster_private_access = false
+
+  # Node Groups
+  main_eks_node_group_name = "development-eks-node-group"
+  main_eks_node_group_subnets_ids = module.networking.dev_private_subnets_ids
+  main_eks_node_group_desired_size = 2
+  main_eks_node_group_max_size = 3
+  main_eks_node_group_min_size = 1
+  main_eks_node_group_max_unavailable = 1
 }
