@@ -83,7 +83,7 @@ variable "main_eks_node_group_subnets_ids" {
 variable "main_eks_node_group_desired_size" {
   description = "Scaling Config in desired Size"
   type = number
-  default = 2
+  default = 3
 }
 
 variable "main_eks_node_group_max_size" {
