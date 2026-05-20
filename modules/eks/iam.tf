@@ -5,7 +5,7 @@
 resource "aws_iam_role" "cluster" {
   name = "${var.cluster_name}-cluster-rol"
 
-  assume_role_policy = jsondecode({
+  assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
       {
@@ -31,7 +31,7 @@ resource "aws_iam_role_policy_attachment" "cluster_policy" {
 resource "aws_iam_role" "node" {
   name = "${development-eks-node-role}-node-rol"
 
-  assume_role_policy = jsondecode({
+  assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
       {
