@@ -85,7 +85,7 @@ module "eks" {
   # Node Groups
   main_eks_node_group_name = "development-eks-node-group"
   main_eks_node_group_subnets_ids = module.networking.private_subnet_ids
-  main_eks_node_group_desired_size = 2
+  main_eks_node_group_desired_size = 3
   main_eks_node_group_max_size = 3
   main_eks_node_group_min_size = 1
   main_eks_node_group_max_unavailable = 1
