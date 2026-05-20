@@ -53,7 +53,7 @@ resource "aws_eks_node_group" "main_eks_node_group" {
   subnet_ids = var.main_eks_node_group_subnets_ids
 
   capacity_type  = "ON_DEMAND"
-  instance_types = ["t3.micro"]
+  instance_types = ["t3.medium"]
 
   # Auto Scaling Configuration
   scaling_config {
