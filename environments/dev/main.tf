@@ -1,9 +1,9 @@
 module "networking" {
   source = "../../modules/networking"
- 
-# ====================================================================
-# 1. variables for networking module
-# ====================================================================
+
+  # ====================================================================
+  # 1. variables for networking module
+  # ====================================================================
 
   # VPC
   vpc_cidr_block  = "10.0.0.0/16"
@@ -62,33 +62,33 @@ module "networking" {
 module "eks" {
   source = "../../modules/eks"
 
-# ====================================================================
-# 2. variables for EKS module
-# ====================================================================
+  # ====================================================================
+  # 2. variables for EKS module
+  # ====================================================================
 
   #Cluster Name
   cluster_name = "development-eks-cluster-role"
-  node_name = "development-eks-node-role"
+  node_name    = "development-eks-node-role"
 
   # ECR Repo
-  app_ecr_repo_name = "development-app-ecr-repo"
+  app_ecr_repo_name        = "development-app-ecr-repo"
   app_ecr_image_mutability = "MUTABLE"
-  app_ecr_environment = "dev"
+  app_ecr_environment      = "dev"
 
   # Cluster EKS
-  main_eks_cluster_name = "development-eks-cluster"
-  main_eks_cluster_version = "1.35"
-  main_eks_cluster_subnets_ids = module.networking.private_subnet_ids
-  main_eks_cluster_public_access = true
+  main_eks_cluster_name           = "development-eks-cluster"
+  main_eks_cluster_version        = "1.35"
+  main_eks_cluster_subnets_ids    = module.networking.private_subnet_ids
+  main_eks_cluster_public_access  = true
   main_eks_cluster_private_access = false
 
   # Node Groups
-  main_eks_node_group_name = "development-eks-node-group"
-  main_eks_node_group_subnets_ids = module.networking.private_subnet_ids
-  main_eks_node_group_capacity_type = "ON_DEMAND"
-  main_eks_node_group_instance_type = ["t3.micro"]
-  main_eks_node_group_desired_size = 2
-  main_eks_node_group_max_size = 2
-  main_eks_node_group_min_size = 1
+  main_eks_node_group_name            = "development-eks-node-group"
+  main_eks_node_group_subnets_ids     = module.networking.private_subnet_ids
+  main_eks_node_group_capacity_type   = "ON_DEMAND"
+  main_eks_node_group_instance_type   = ["t3.micro"]
+  main_eks_node_group_desired_size    = 2
+  main_eks_node_group_max_size        = 2
+  main_eks_node_group_min_size        = 1
   main_eks_node_group_max_unavailable = 1
 }
