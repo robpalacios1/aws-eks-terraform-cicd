@@ -11,7 +11,7 @@ resource "aws_ecr_repository" "app_ecr_repo" {
   }
 
   tags = {
-    environment = var.app_ecr_environment   
+    environment = var.app_ecr_environment
   }
 }
 
@@ -20,8 +20,8 @@ resource "aws_ecr_repository" "app_ecr_repo" {
 # ====================================================================
 
 resource "aws_eks_cluster" "main_eks_cluster" {
-  name    = var.main_eks_cluster_name   
-  version = var.main_eks_cluster_version   
+  name    = var.main_eks_cluster_name
+  version = var.main_eks_cluster_version
 
   # The ARN from Role created in the file iam.tf
   role_arn = aws_iam_role.cluster.arn
@@ -30,7 +30,7 @@ resource "aws_eks_cluster" "main_eks_cluster" {
     subnet_ids = var.main_eks_cluster_subnets_ids
 
     # Allow connect to cluster from your terminal (kubectl)
-    endpoint_public_access  = var.main_eks_cluster_public_access    
+    endpoint_public_access  = var.main_eks_cluster_public_access
     endpoint_private_access = var.main_eks_cluster_private_access
   }
 
@@ -52,7 +52,7 @@ resource "aws_eks_node_group" "main_eks_node_group" {
 
   subnet_ids = var.main_eks_node_group_subnets_ids
 
-  capacity_type  = var.main_eks_node_group_capacity_type  
+  capacity_type  = var.main_eks_node_group_capacity_type
   instance_types = var.main_eks_node_group_instance_type
 
   # Auto Scaling Configuration
