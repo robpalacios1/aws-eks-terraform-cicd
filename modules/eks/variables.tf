@@ -46,7 +46,7 @@ variable "main_eks_cluster_name" {
 variable "main_eks_cluster_version" {
   description = "Version EKS Cluster"
   type = string
-  default = "1.30"
+  default = "1.35"
 }
 
 variable "main_eks_cluster_subnets_ids" {
