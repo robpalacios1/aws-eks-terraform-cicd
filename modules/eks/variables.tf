@@ -80,16 +80,28 @@ variable "main_eks_node_group_subnets_ids" {
   type = list(string)
 }
 
+variable "main_eks_node_group_capacity_type" {
+  description = "Capacity Type"
+  type = string
+  default = "ON_DEMAND"
+}
+
+variable "main_eks_node_group_instance_type" {
+  description = "Instance Type"
+  type = list(string)
+  default = ["t3.micro"]
+}
+
 variable "main_eks_node_group_desired_size" {
   description = "Scaling Config in desired Size"
   type = number
-  default = 3
+  default = 2
 }
 
 variable "main_eks_node_group_max_size" {
   description = "Scaling Config in Max Size"
   type = number
-  default = 3
+  default = 2
 }
 
 variable "main_eks_node_group_min_size" {
