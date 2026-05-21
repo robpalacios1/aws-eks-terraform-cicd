@@ -28,7 +28,9 @@ resource "aws_iam_role" "github_actions_role" {
                 "StringEquals" = {
                     "token.actions.githubusercontent.com:aud" = "sts:amazonaws.com"
                 },
-                "token.actions.githubusercontent.com:sub" = "repo:robpalacios1/aws-eks-terraform-cicd"
+                "StringLike" = {
+                    "token.actions.githubusercontent.com:sub" = "repo:robpalacios1/aws-eks-terraform-cicd"
+                }
             }
         }
     ]
