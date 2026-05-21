@@ -77,7 +77,7 @@ module "eks" {
 
   # Cluster EKS
   main_eks_cluster_name = "development-eks-cluster"
-  main_eks_cluster_version = "1.30"
+  main_eks_cluster_version = "1.35"
   main_eks_cluster_subnets_ids = module.networking.private_subnet_ids
   main_eks_cluster_public_access = true
   main_eks_cluster_private_access = false
