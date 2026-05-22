@@ -1,10 +1,7 @@
 # Production-Ready AWS EKS Cluster Provisioning & App Deployment via Terraform & GitOps CI/CD
 
-[![Terraform](https://shields.io)](https://terraform.io)
-[![AWS](https://shields.io)](https://amazon.com)
-[![Kubernetes](https://shields.io)](https://kubernetes.io)
-[![GitHub Actions](https://shields.io)](https://github.com)
-[![Docker](https://shields.io)](https://docker.com)
+> **Tech Stack Overview:** 🛠️ `Terraform` | ☁️ `Amazon Web Services (AWS)` | ☸️ `Kubernetes (EKS)` | 🚀 `GitHub Actions` | 🐳 `Docker`
+
 
 This repository implements a fully automated, production-grade Infrastructure as Code (IaC) and GitOps Continuous Integration/Continuous Deployment (CI/CD) framework. It leverages **Terraform** to provision a highly available network infrastructure and an **Amazon EKS (Elastic Kubernetes Service)** cluster, while **GitHub Actions** drives the automated build, test, and containerized deployment lifecycle.
 
