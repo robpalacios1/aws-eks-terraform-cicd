@@ -45,3 +45,6 @@ Desktop.ini
 *.log
 tmp/
 temp/
+
+# files
+aws-auth.yaml
