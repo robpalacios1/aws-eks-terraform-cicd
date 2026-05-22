@@ -3,7 +3,6 @@ name: CI/CD pipeline EKS
 on:
   push:
     branches:
-      - feature/*
       - master
 
 permissions:
