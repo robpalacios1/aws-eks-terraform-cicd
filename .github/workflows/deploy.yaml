@@ -23,6 +23,19 @@ jobs:
           role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
           aws-region: us-east-1
 
-      - name: Validate conections to AWS
-        run: aws sts get-caller-identity
+      - name: Login to mzon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build, Tag and Push to ECR
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.ouputs.registry }}
+          ECR_REPOSITORY: development-app-ecr-repo
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          echo "Building Image of Docker..."
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
+          echo "Uploading Image to Amazon ECR..."
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
       
