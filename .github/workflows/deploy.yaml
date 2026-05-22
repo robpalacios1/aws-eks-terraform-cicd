@@ -1,0 +1,55 @@
+name: CI/CD pipeline EKS
+
+on:
+  push:
+    branches:
+      - master
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Safe Authentication on AWS (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: us-east-1
+
+      - name: Login to mzon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build, Tag and Push to ECR
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: development-app-ecr-repo
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          echo "Building Image of Docker..."
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG ./app
+
+          echo "Uploading Image to Amazon ECR..."
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
+      - name: Update Kubeconfig to Connect EKS
+        run: aws eks update-kubeconfig --region us-east-1 --name development-eks-cluster
+
+      - name: Deploy New Version to EKS
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: development-app-ecr-repo
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          echo "Applying the Deployment base to Cluster EKS "
+          kubectl apply -f k8s/deployment.yaml
+
+          echo "New Image compiled (IMAGE_TAG)"
+          kubectl set image deployment/dev-app-deployment web-container=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+      
