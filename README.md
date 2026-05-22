@@ -122,16 +122,19 @@ The included CI/CD pipeline triggers automatically on every code push or Pull Re
 
 ---
 
-## 🔐 Required Secrets Vault Configuration
+## 🔐 GitHub Secrets & OIDC Trust Configuration
 
-To enable GitHub Actions pipelines to execute commands securely inside AWS, add these key-value entries to **Settings > Secrets and variables > Actions > Repository secrets**:
+This repository utilizes **AWS OpenID Connect (OIDC)** to securely authenticate with your AWS account without storing permanent IAM credentials. 
+
+To enable the GitHub Actions pipeline to assume the deployment role, add the following entry to **Settings > Secrets and variables > Actions > Repository secrets**:
 
 
 | Secret Key Name | Intended Architectural Use Case |
 | :--- | :--- |
-| `AWS_ACCESS_KEY_ID` | IAM deployment agent access identification token. |
-| `AWS_SECRET_ACCESS_KEY` | Secured programmatic cryptographic key for access. |
-| `AWS_REGION` | Core target deployment zone (e.g., `us-east-1`). |
+| `AWS_ROLE_ARN` | The Amazon Resource Name (ARN) of the IAM Role that GitHub Actions will assume to provision resources. |
+
+> [!NOTE]  
+> Ensure that your AWS IAM Role has a trust relationship configured to allow your specific GitHub repository (`robpalacios1/aws-eks-terraform-cicd`) and the active environment branches to request temporary security tokens.
 
 ---
 
