@@ -6,6 +6,11 @@ metadata:
     app: dev-web
 spec:
   replicas: 2
+  strategy:
+    type: RollingUpdate
+    RollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
   selector:
     matchLabels:
       app: dev-web
